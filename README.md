@@ -8,3 +8,7 @@ This repo demonstrates an approach to Unity ECS in 2D that answers these questio
 - How to store and use information of spritesheets?
 - How to implement spritesheet animation logic in ECS?
 - How to synchronize sprite renderers with entities?
+
+## Credits
+
+- GandalfHardcore - Pixel Art Character Pack: https://gandalfhardcore.itch.io/free-pixel-art
