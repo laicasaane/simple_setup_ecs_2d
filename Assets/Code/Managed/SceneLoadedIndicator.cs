@@ -9,11 +9,16 @@ namespace SimpleSetupEcs2d
 
         private void Awake()
         {
-            StartCoroutine(CheckLoaded_Coroutine());
+            gameObject.AddComponent<SpritePresenterPooler>();
+
+            StartCoroutine(Load_Coroutine());
         }
 
-        private IEnumerator CheckLoaded_Coroutine()
+        private IEnumerator Load_Coroutine()
         {
+            var pooler = GetComponent<SpritePresenterPooler>();
+            pooler.Initialize();
+
             while (SpriteSheetVault.IsReady == false)
             {
                 yield return null;

@@ -17,6 +17,18 @@ namespace SimpleSetupEcs2d
             RequireForUpdate(query);
         }
 
+        protected override void OnDestroy()
+        {
+            var query = SystemAPI.QueryBuilder()
+                .WithAll<NativeSpriteSheetVault>()
+                .Build();
+
+            if (query.TryGetSingleton<NativeSpriteSheetVault>(out var vault))
+            {
+                vault.map.Dispose();
+            }
+        }
+
         protected override void OnUpdate()
         {
             var indicator = Object.FindFirstObjectByType<SceneLoadedIndicator>();

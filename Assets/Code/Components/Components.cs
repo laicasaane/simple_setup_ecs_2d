@@ -1,12 +1,21 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Jobs;
 
 namespace SimpleSetupEcs2d
 {
     public struct NativeSpriteSheetVault : IComponentData
     {
         public NativeHashMap<SpriteSheetId, NativeSpriteSheet> map;
+    }
+
+    public struct SpritePresenterPoolerRef : IComponentData
+    {
+        public UnityObjectRef<SpritePresenterPooler> poolerRef;
+        public TransformAccessArray transformArray;
+        public NativeList<float3> positions;
     }
 
     public struct NativeSpriteSheet
@@ -24,9 +33,9 @@ namespace SimpleSetupEcs2d
         public bool canChangeSpriteSheet;
     }
 
-    public struct TransformRef : IComponentData
+    public struct GameObjectInfo : IComponentData
     {
-        public UnityObjectRef<Transform> value;
+        public PooledGameObject value;
     }
 
     public struct SpriteRendererRef : IComponentData
