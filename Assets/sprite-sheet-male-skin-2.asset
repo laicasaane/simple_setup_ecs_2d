@@ -74,7 +74,7 @@ MonoBehaviour:
     - {fileID: 265544851, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
     - {fileID: 897251911, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
     - {fileID: -146964752, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
-  - _name: death
+  - _name: dying
     _id: 6
     _fps: 12
     _sprites:
@@ -87,4 +87,9 @@ MonoBehaviour:
     - {fileID: -821610641, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
     - {fileID: -813593074, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
     - {fileID: 489005719, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
+    - {fileID: 1560814121, guid: fa8c69c45c22eca42937459c4399efee, type: 3}
+  - _name: dead
+    _id: 7
+    _fps: 1
+    _sprites:
     - {fileID: 1560814121, guid: fa8c69c45c22eca42937459c4399efee, type: 3}

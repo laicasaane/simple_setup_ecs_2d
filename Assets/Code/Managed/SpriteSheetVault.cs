@@ -11,6 +11,10 @@ namespace SimpleSetupEcs2d
 
         public static bool IsReady { get; private set; }
 
+        public static IReadOnlyDictionary<SpriteSheetId, SpriteSheetAsset.Sheet> IdToSheet => s_idToSheet;
+
+        public static IReadOnlyDictionary<string, SpriteSheetId> NameToId => s_nameToId;
+
         public static bool TryGetSheet(SpriteSheetId id, out SpriteSheetAsset.Sheet sheet)
             => s_idToSheet.TryGetValue(id, out sheet);
 

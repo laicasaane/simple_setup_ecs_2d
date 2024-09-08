@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 50101677}
   - component: {fileID: 50101678}
   m_Layer: 0
-  m_Name: spawn-prefab-character-2d
+  m_Name: spawn-prefab-sprite-character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,9 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5978274688322637815, guid: ed99a64098e0f9f49af145db3f3784c3, type: 3}
   amount: 1
-  idRandom:
-    x: 0
-    y: 0
+  canChangeSpriteSheet: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

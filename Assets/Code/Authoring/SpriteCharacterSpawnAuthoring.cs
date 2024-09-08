@@ -6,13 +6,16 @@ namespace SimpleSetupEcs2d
     public sealed class SpriteCharacterSpawnAuthoring : MonoBehaviour
     {
         public GameObject prefab;
+        public ushort assetId;
+        public ushort sheetId;
         public int amount;
+        public bool canChangeSpriteSheet;
 
         private void OnValidate()
         {
             if (prefab)
             {
-                this.name = $"spawn-{prefab.name}";
+                name = $"spawn-{prefab.name}";
             }
         }
 
@@ -25,7 +28,9 @@ namespace SimpleSetupEcs2d
 
                 AddComponent(entity, new SpriteSpawnInfo {
                     prefab = prefab,
+                    id = new(authoring.assetId, authoring.sheetId),
                     amount = authoring.amount,
+                    canChangeSpriteSheet = authoring.canChangeSpriteSheet,
                 });
             }
         }

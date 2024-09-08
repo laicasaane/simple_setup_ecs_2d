@@ -5,9 +5,6 @@ namespace SimpleSetupEcs2d
 {
     internal sealed class SpriteCharacterAuthoring : MonoBehaviour
     {
-        public ushort assetId;
-        public ushort sheetId;
-
         private class Baker : Baker<SpriteCharacterAuthoring>
         {
             public override void Bake(SpriteCharacterAuthoring authoring)
@@ -15,14 +12,17 @@ namespace SimpleSetupEcs2d
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent<TransformRef>(entity);
                 AddComponent<SpriteRendererRef>(entity);
-                AddComponent<SpriteIndex>(entity);
+                AddComponent<SpriteSheetInfo>(entity);
                 AddComponent<SpriteInterval>(entity);
                 AddComponent<SpriteElapsedTime>(entity);
-
+                AddComponent<SpriteIndex>(entity);
                 AddComponent(entity, new SpriteIndexPrevious { value = -1 });
-                AddComponent(entity, new SpriteSheetInfo {
-                    id = new(authoring.assetId, authoring.sheetId)
-                });
+
+                AddComponent<CanChangeSpriteSheetTag>(entity);
+                SetComponentEnabled<CanChangeSpriteSheetTag>(entity, false);
+
+                AddComponent<NeedsInitComponentsTag>(entity);
+                AddComponent<NeedsInitPresenterTag>(entity);
             }
         }
     }
