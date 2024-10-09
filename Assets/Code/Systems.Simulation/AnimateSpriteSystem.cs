@@ -19,6 +19,7 @@ namespace SimpleSetupEcs2d
                 .WithAllRW<SpriteElapsedTime>()
                 .WithAll<SpriteInterval, SpriteSheetInfo>()
                 .WithDisabled<NeedsInitComponentsTag>()
+                .WithDisabled<NeedsDestroyTag>()
                 .Build();
 
             state.RequireForUpdate(_query);

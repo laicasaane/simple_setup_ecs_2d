@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SimpleSetupEcs2d
 {
-    [UpdateInGroup(typeof(InitializationSystemGroup))]
+    [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeSpritePresenterPoolerRefSystem : SystemBase
     {
         protected override void OnCreate()
@@ -30,7 +30,7 @@ namespace SimpleSetupEcs2d
                 positions = pooler.Pool.Positions,
             };
 
-            EntityManager.CreateSingleton(poolerRef, "SpritePresenterPoolerRef");
+            EntityManager.CreateSingleton(poolerRef, nameof(SpritePresenterPoolerRef));
             CheckedStateRef.Enabled = false;
         }
     }

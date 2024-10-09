@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "SimpleSetupEcs2d",
     "rootNamespace": "SimpleSetupEcs2d",
     "references": [
@@ -15,7 +15,7 @@
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

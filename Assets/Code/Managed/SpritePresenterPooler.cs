@@ -16,7 +16,9 @@ namespace SimpleSetupEcs2d
                 return;
             }
 
-            var prefab = new GameObject("prefab-sprite-presenter", typeof(SpriteRenderer));
+            var prefab = new GameObject("prefab-sprite-presenter");
+            var renderer = prefab.AddComponent<SpriteRenderer>();
+            renderer.spriteSortPoint = SpriteSortPoint.Pivot;
             prefab.SetActive(false);
 
             _pool = new GameObjectPool(prefab, 4, float3.zero, quaternion.identity);

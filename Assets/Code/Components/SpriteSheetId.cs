@@ -32,4 +32,13 @@ namespace SimpleSetupEcs2d
         public static bool operator !=(SpriteSheetId left, SpriteSheetId right)
             => left._raw != right._raw;
     }
+
+    public static class SpriteSheetAPI
+    {
+        public const int WALK_ID = 1;
+        public const int RUN_ID = 2;
+
+        public static bool IsMovable(SpriteSheetId id)
+            => id.SheetId >= WALK_ID && id.SheetId <= RUN_ID;
+    }
 }

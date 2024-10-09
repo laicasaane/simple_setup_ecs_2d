@@ -18,11 +18,19 @@ namespace SimpleSetupEcs2d
                 AddComponent<SpriteIndex>(entity);
                 AddComponent(entity, new SpriteIndexPrevious { value = -1 });
 
+                AddComponent<FaceDirection>(entity);
+                AddComponent<MoveSpeed>(entity);
+                AddComponent<CanMoveTag>(entity);
+                SetComponentEnabled<CanMoveTag>(entity, false);
+
                 AddComponent<CanChangeSpriteSheetTag>(entity);
                 SetComponentEnabled<CanChangeSpriteSheetTag>(entity, false);
 
                 AddComponent<NeedsInitComponentsTag>(entity);
                 AddComponent<NeedsInitPresenterTag>(entity);
+
+                AddComponent<NeedsDestroyTag>(entity);
+                SetComponentEnabled<NeedsDestroyTag>(entity, false);
             }
         }
     }

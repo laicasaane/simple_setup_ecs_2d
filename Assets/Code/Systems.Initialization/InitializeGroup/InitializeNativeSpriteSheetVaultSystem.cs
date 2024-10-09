@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SimpleSetupEcs2d
 {
-    [UpdateInGroup(typeof(InitializationSystemGroup))]
+    [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeNativeSpriteSheetVaultSystem : SystemBase
     {
         protected override void OnCreate()
@@ -25,7 +25,9 @@ namespace SimpleSetupEcs2d
 
             if (query.TryGetSingleton<NativeSpriteSheetVault>(out var vault))
             {
-                vault.map.Dispose();
+                vault.assetIdToSheetIdRangeMap.Dispose();
+                vault.sheetIds.Dispose();
+                vault.sheetIdToSheetMap.Dispose();
             }
         }
 
@@ -39,20 +41,44 @@ namespace SimpleSetupEcs2d
             }
 
             var idToSheet = SpriteSheetVault.IdToSheet;
+            var count = idToSheet.Count;
+
             var vault = new NativeSpriteSheetVault {
-                map = new(idToSheet.Count, Allocator.Persistent)
+                assetIdToSheetIdRangeMap = new(count, Allocator.Persistent),
+                sheetIds = new(count, Allocator.Persistent),
+                sheetIdToSheetMap = new(count, Allocator.Persistent),
             };
+
+            var assetIds = new NativeHashSet<ushort>(count, Allocator.Temp);
+            var assetIdToSheetIdsMap = new NativeParallelMultiHashMap<ushort, ushort>(count, Allocator.Temp);
 
             foreach (var (id, sheet) in idToSheet)
             {
-                vault.map.TryAdd(id, new NativeSpriteSheet {
+                assetIds.Add(id.AssetId);
+                assetIdToSheetIdsMap.Add(id.AssetId, id.SheetId);
+                vault.sheetIdToSheetMap.TryAdd(id, new NativeSpriteSheet {
                     id = sheet.Id,
                     length = sheet.Sprites.Length,
                     spriteInterval = 1f / math.max(sheet.Fps, 1),
                 });
             }
 
-            EntityManager.CreateSingleton(vault, "NativeSpriteSheetVault");
+            var sheetIdIndex = 0;
+
+            foreach (var assetId in assetIds)
+            {
+                var start = sheetIdIndex;
+
+                foreach (var sheetId in assetIdToSheetIdsMap.GetValuesForKey(assetId))
+                {
+                    vault.sheetIds[sheetIdIndex] = new(assetId, sheetId);
+                    sheetIdIndex++;
+                }
+
+                vault.assetIdToSheetIdRangeMap.TryAdd(assetId, new(start, sheetIdIndex));
+            }
+
+            EntityManager.CreateSingleton(vault, nameof(NativeSpriteSheetVault));
             CheckedStateRef.Enabled = false;
         }
     }

@@ -25,6 +25,7 @@ namespace SimpleSetupEcs2d
                 .WithAll<GameObjectInfo, LocalToWorld>()
                 .WithDisabled<NeedsInitComponentsTag>()
                 .WithDisabled<NeedsInitPresenterTag>()
+                .WithDisabled<NeedsDestroyTag>()
                 .Build();
 
             state.RequireForUpdate(_poolerQuery);

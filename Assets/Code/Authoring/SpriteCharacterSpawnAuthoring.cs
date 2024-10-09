@@ -24,10 +24,9 @@ namespace SimpleSetupEcs2d
             public override void Bake(SpriteCharacterSpawnAuthoring authoring)
             {
                 var entity = GetEntity(authoring, TransformUsageFlags.None);
-                var prefab = GetEntity(authoring.prefab, TransformUsageFlags.Dynamic);
+                var _ = GetEntity(authoring.prefab, TransformUsageFlags.Dynamic);
 
                 AddComponent(entity, new SpriteSpawnInfo {
-                    prefab = prefab,
                     id = new(authoring.assetId, authoring.sheetId),
                     amount = authoring.amount,
                     canChangeSpriteSheet = authoring.canChangeSpriteSheet,

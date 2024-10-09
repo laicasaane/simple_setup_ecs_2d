@@ -5,8 +5,8 @@ using Unity.Mathematics;
 
 namespace SimpleSetupEcs2d
 {
-    [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public sealed partial class ChangeSpriteSheetSystem : SystemBase
+    [UpdateInGroup(typeof(HandleEventSystemGroup))]
+    public sealed partial class HandleEventChangeSpriteSheetSystem : SystemBase
     {
         private int? _sheetId;
         private EntityQuery _vaultQuery;
@@ -27,6 +27,7 @@ namespace SimpleSetupEcs2d
                 .WithAllRW<SpriteElapsedTime>()
                 .WithAllRW<SpriteIndex>()
                 .WithAllRW<SpriteIndexPrevious>()
+                .WithPresentRW<CanMoveTag>()
                 .Build();
 
             RequireForUpdate(_vaultQuery);
@@ -43,7 +44,7 @@ namespace SimpleSetupEcs2d
             var sheetId = _sheetId.Value;
             _sheetId = default;
 
-            var vault = _vaultQuery.GetSingleton<NativeSpriteSheetVault>().map;
+            var vault = _vaultQuery.GetSingleton<NativeSpriteSheetVault>().sheetIdToSheetMap;
 
             var job = new ChangeSpriteSheetJob {
                 sheetId = sheetId,
@@ -71,6 +72,7 @@ namespace SimpleSetupEcs2d
                 , ref SpriteElapsedTime elapsedTime
                 , ref SpriteIndex index
                 , ref SpriteIndexPrevious indexPrev
+                , EnabledRefRW<CanMoveTag> canMoveTag
             )
             {
                 var id = new SpriteSheetId(info.id.AssetId, (ushort)math.max(0, sheetId));
@@ -86,6 +88,7 @@ namespace SimpleSetupEcs2d
                 elapsedTime.value = 0f;
                 index.value = 0;
                 indexPrev.value = -1;
+                canMoveTag.ValueRW = SpriteSheetAPI.IsMovable(id);
             }
         }
     }

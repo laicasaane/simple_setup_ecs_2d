@@ -16,10 +16,11 @@ namespace SimpleSetupEcs2d
 
         protected override void OnUpdate()
         {
-            foreach (var (rendererRef, spriteIndex, spriteIndexPrev, spriteSheetInfo)
-                in SystemAPI.Query<SpriteRendererRef, SpriteIndex, SpriteIndexPrevious, SpriteSheetInfo>()
+            foreach (var (rendererRef, spriteIndex, spriteIndexPrev, spriteSheetInfo, faceDirection)
+                in SystemAPI.Query<SpriteRendererRef, SpriteIndex, SpriteIndexPrevious, SpriteSheetInfo, FaceDirection>()
                     .WithDisabled<NeedsInitComponentsTag>()
                     .WithDisabled<NeedsInitPresenterTag>()
+                    .WithDisabled<NeedsDestroyTag>()
             )
             {
                 var length = spriteSheetInfo.length;
@@ -41,7 +42,9 @@ namespace SimpleSetupEcs2d
 
                 var index = spriteIndex.value % length;
                 var sprite = sheet.Sprites.Span[index];
-                rendererRef.value.Value.sprite = sprite;
+                var renderer = rendererRef.value.Value;
+                renderer.sprite = sprite;
+                renderer.flipX = faceDirection.value > 0;
             }
         }
     }

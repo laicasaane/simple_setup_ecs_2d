@@ -10,9 +10,13 @@ namespace SimpleSetupEcs2d
     [StructLayout(LayoutKind.Explicit)]
     public struct PooledGameObject
     {
-        [FieldOffset(0)] public int instanceId;
-        [FieldOffset(4)] public int transformId;
-        [FieldOffset(8)] public int transformArrayIndex;
+        public const int OFFSET_INSTANCE_ID = 0;
+        public const int OFFSET_TRANSFORM_ID = 4;
+        public const int OFFSET_TRANSFORM_ARRAY_INDEX = 8;
+
+        [FieldOffset(OFFSET_INSTANCE_ID)] public int instanceId;
+        [FieldOffset(OFFSET_TRANSFORM_ID)] public int transformId;
+        [FieldOffset(OFFSET_TRANSFORM_ARRAY_INDEX)] public int transformArrayIndex;
     }
 
     public sealed class GameObjectPool : IDisposable
@@ -145,8 +149,8 @@ namespace SimpleSetupEcs2d
 
             var startIndex = _unusedInstanceIds.Length - amount;
 
-            _unusedInstanceIds.AsArray().AsReadOnlySpan()[startIndex..].CopyTo(instanceIds);
-            _unusedTransformIds.AsArray().AsReadOnlySpan()[startIndex..].CopyTo(transformIds);
+            _unusedInstanceIds.AsArray().AsReadOnlySpan().Slice(startIndex, amount).CopyTo(instanceIds);
+            _unusedTransformIds.AsArray().AsReadOnlySpan().Slice(startIndex, amount).CopyTo(transformIds);
 
             _unusedInstanceIds.RemoveRange(startIndex, amount);
             _unusedTransformIds.RemoveRange(startIndex, amount);
@@ -196,7 +200,7 @@ namespace SimpleSetupEcs2d
             return true;
         }
 
-        public void Return(Span<int> instanceIds, Span<int> transformIds)
+        public void Return(ReadOnlySpan<int> instanceIds, ReadOnlySpan<int> transformIds)
         {
             var length = instanceIds.Length;
 
@@ -210,8 +214,8 @@ namespace SimpleSetupEcs2d
             _unusedInstanceIds.AddReplicate(default, length);
             _unusedTransformIds.AddReplicate(default, length);
 
-            instanceIds.CopyTo(_unusedInstanceIds.AsArray().AsSpan()[startIndex..]);
-            transformIds.CopyTo(_unusedTransformIds.AsArray().AsSpan()[startIndex..]);
+            instanceIds.CopyTo(_unusedInstanceIds.AsArray().AsSpan().Slice(startIndex, length));
+            transformIds.CopyTo(_unusedTransformIds.AsArray().AsSpan().Slice(startIndex, length));
 
             GameObject.SetGameObjectsActive(instanceIds, false);
         }
