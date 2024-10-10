@@ -24,8 +24,14 @@ Add more functionality
 - Can change global move speed for all characters in real-time
 - Destroy entities
 
-![spritesheet animations](docs~/preview-2.gif)
+![spritesheet animations](docs~/preview-3.0.0.gif)
 
+### Version 3.1.0
+
+- Refactor some code
+- Teleport characters to the opposite side of the screen if the went out of bounds
+
+![spritesheet animations](docs~/preview-3.1.0.gif)
 
 ## Credits
 
