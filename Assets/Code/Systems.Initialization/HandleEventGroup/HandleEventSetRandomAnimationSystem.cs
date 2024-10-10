@@ -122,13 +122,16 @@ namespace SimpleSetupEcs2d
                     return;
                 }
 
-                info.id = id;
-                info.length = sheet.length;
-                interval.value = sheet.spriteInterval;
-                elapsedTime.value = 0f;
-                index.value = 0;
-                indexPrev.value = -1;
-                canMoveTag.ValueRW = SpriteSheetAPI.IsMovable(id);
+                SpriteSheetAPI.Initialize(
+                      id
+                    , sheet
+                    , ref info
+                    , ref interval
+                    , ref elapsedTime
+                    , ref index
+                    , ref indexPrev
+                    , canMoveTag
+                );
             }
         }
     }
