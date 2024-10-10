@@ -44,6 +44,12 @@ namespace SimpleSetupEcs2d
         public float3 max;
     }
 
+    public struct WorldBoundary : IComponentData
+    {
+        public float3 min;
+        public float3 max;
+    }
+
     public struct Randomizer : IComponentData
     {
         public Unity.Mathematics.Random value;
