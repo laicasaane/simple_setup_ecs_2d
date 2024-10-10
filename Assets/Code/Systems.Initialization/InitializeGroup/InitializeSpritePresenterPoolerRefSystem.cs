@@ -1,5 +1,6 @@
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SimpleSetupEcs2d
 {
@@ -17,12 +18,18 @@ namespace SimpleSetupEcs2d
 
         protected override void OnUpdate()
         {
-            var pooler = Object.FindFirstObjectByType<SpritePresenterPooler>();
+            var indicator = Object.FindFirstObjectByType<SceneLoadedIndicator>();
 
-            if (pooler == false || pooler.Pool == null)
+            if (indicator == false || indicator.Loaded == false)
             {
                 return;
             }
+
+            var poolerGO = new GameObject("sprite-presenter-pooler");
+            SceneManager.MoveGameObjectToScene(poolerGO, indicator.gameObject.scene);
+
+            var pooler = poolerGO.AddComponent<SpritePresenterPooler>();
+            pooler.Initialize();
 
             var poolerRef = new SpritePresenterPoolerRef {
                 poolerRef = pooler,
