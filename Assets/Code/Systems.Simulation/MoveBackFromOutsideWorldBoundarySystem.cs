@@ -58,7 +58,7 @@ namespace SimpleSetupEcs2d
                 var max = boundary.max;
                 var xToTheRight = math.select(position.x, min.x - padding, position.x > max.x + padding);
                 var xToTheLeft = math.select(position.x, max.x + padding, position.x < min.x - padding);
-                position.x = math.select(xToTheLeft, xToTheRight, faceDirection.value > 0);
+                position.x = math.select(xToTheLeft, xToTheRight, faceDirection.GetFace() > 0);
 
                 transform.Position = position;
             }

@@ -47,7 +47,7 @@ namespace SimpleSetupEcs2d
                 , ref LocalTransform transform
             )
             {
-                transform.Position += new float3(moveSpeed.value * deltaTime, 0f, 0f) * faceDirection.value;
+                transform.Position += new float3(moveSpeed.value * deltaTime, 0f, 0f) * faceDirection.GetFace();
             }
         }
     }

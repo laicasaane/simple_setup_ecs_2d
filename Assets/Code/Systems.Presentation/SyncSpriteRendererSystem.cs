@@ -44,7 +44,7 @@ namespace SimpleSetupEcs2d
                 var sprite = sheet.Sprites.Span[index];
                 var renderer = rendererRef.value.Value;
                 renderer.sprite = sprite;
-                renderer.flipX = faceDirection.value > 0;
+                renderer.flipX = faceDirection.GetFace() > 0;
             }
         }
     }

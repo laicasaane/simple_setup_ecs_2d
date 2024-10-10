@@ -102,6 +102,9 @@ namespace SimpleSetupEcs2d
     public struct FaceDirection : IComponentData
     {
         public sbyte value;
+
+        public readonly int GetFace()
+            => math.select(-1, 1, value > 0);
     }
 
     public struct MoveSpeed : IComponentData
