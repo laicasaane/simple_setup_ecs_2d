@@ -3,7 +3,7 @@ using Unity.Entities;
 namespace SimpleSetupEcs2d
 {
     [UpdateInGroup(typeof(PresentationSystemGroup))]
-    public sealed partial class SyncSpriteRendererSystem : SystemBase
+    public sealed partial class SyncSpriteRendererV1System : SystemBase
     {
         protected override void OnCreate()
         {

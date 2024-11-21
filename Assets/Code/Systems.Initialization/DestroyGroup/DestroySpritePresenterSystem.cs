@@ -14,7 +14,7 @@ namespace SimpleSetupEcs2d
         {
             _commandQuery = SystemAPI.QueryBuilder()
                 .WithDisabledRW<NeedsDestroyTag>()
-                .WithAll<DestroyCommandTag>()
+                .WithAll<DestroySpritePresenterCommandTag>()
                 .Build();
 
             _poolerQuery = SystemAPI.QueryBuilder()
@@ -28,7 +28,6 @@ namespace SimpleSetupEcs2d
 
             RequireForUpdate(_commandQuery);
             RequireForUpdate(_poolerQuery);
-            RequireForUpdate(_presenterQuery);
         }
 
         protected override void OnUpdate()

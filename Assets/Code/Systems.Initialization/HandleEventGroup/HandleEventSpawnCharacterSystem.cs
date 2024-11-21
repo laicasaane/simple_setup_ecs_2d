@@ -7,7 +7,10 @@ namespace SimpleSetupEcs2d
     public sealed partial class HandleEventSpawnCharacterSystem : SystemBase
     {
         private SpawnInfo? _spawnInfo;
+        private SpawnInfo? _prevSpawnInfo;
         private EntityArchetype _archetype;
+        private EntityQuery _prefabVaultQuery;
+        private byte _version = VersionAPI.VERSION_1;
 
         protected override void OnCreate()
         {
@@ -17,7 +20,14 @@ namespace SimpleSetupEcs2d
 
             _archetype = EntityManager.CreateArchetype(types);
 
+            _prefabVaultQuery = SystemAPI.QueryBuilder()
+                .WithAll<EntityPrefabVault>()
+                .Build();
+
+            RequireForUpdate(_prefabVaultQuery);
+
             EventVault.OnSpawnCharacters += EventVault_OnSpawnCharacters;
+            EventVault.OnSetVersion2 += EventVault_OnSetVersion2;
         }
 
         protected override void OnUpdate()
@@ -28,6 +38,7 @@ namespace SimpleSetupEcs2d
             }
 
             var spawnInfo = _spawnInfo.Value;
+            _prevSpawnInfo = spawnInfo;
             _spawnInfo = default;
 
             if (spawnInfo.amount < 1)
@@ -35,10 +46,21 @@ namespace SimpleSetupEcs2d
                 return;
             }
 
+            if (_prefabVaultQuery.TryGetSingleton<EntityPrefabVault>(out var prefabVault) == false)
+            {
+                return;
+            }
+
+            if (prefabVault.value.TryGetValue(spawnInfo.prefabId, out var prefab) == false)
+            {
+                return;
+            }
+
             var entity = EntityManager.CreateEntity(_archetype);
 
             EntityManager.SetComponentData(entity, new SpriteSpawnInfo {
-                id = new(spawnInfo.assetId, 0),
+                prefab = prefab,
+                sheetId = new(spawnInfo.assetId, 0),
                 amount = spawnInfo.amount,
                 canChangeSpriteSheet = true,
                 randomPosition = spawnInfo.randomPosition,
@@ -48,14 +70,30 @@ namespace SimpleSetupEcs2d
         private void EventVault_OnSpawnCharacters(int assetId, int amount, bool randomPosition)
         {
             _spawnInfo = new SpawnInfo {
+                prefabId = new((uint)assetId, _version),
                 assetId = (ushort)assetId,
                 amount = amount,
                 randomPosition = randomPosition,
             };
         }
 
+        private void EventVault_OnSetVersion2(bool value)
+        {
+            _version = VersionAPI.GetVersion(value);
+
+            if (_prevSpawnInfo.HasValue == false)
+            {
+                return;
+            }
+
+            var spawnInfo = _prevSpawnInfo.Value;
+            spawnInfo.prefabId = new(spawnInfo.assetId, _version);
+            _spawnInfo = spawnInfo;
+        }
+
         private struct SpawnInfo
         {
+            public EntityPrefabId prefabId;
             public int amount;
             public ushort assetId;
             public bool randomPosition;

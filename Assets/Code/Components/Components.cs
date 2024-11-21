@@ -28,14 +28,21 @@ namespace SimpleSetupEcs2d
         public NativeList<float3> positions;
     }
 
+    public struct EntityPrefab : IComponentData
+    {
+        public Entity prefab;
+        public uint id;
+        public byte version;
+    }
+
+    public struct EntityPrefabVault : IComponentData
+    {
+        public NativeHashMap<EntityPrefabId, Entity> value;
+    }
+
     public struct RandomAnimation : IComponentData
     {
         public bool value;
-    }
-
-    public struct CharacterPrefab : IComponentData
-    {
-        public Entity value;
     }
 
     public struct SpawnRange : IComponentData
@@ -57,7 +64,8 @@ namespace SimpleSetupEcs2d
 
     public struct SpriteSpawnInfo : IComponentData
     {
-        public SpriteSheetId id;
+        public Entity prefab;
+        public SpriteSheetId sheetId;
         public int amount;
         public bool canChangeSpriteSheet;
         public bool randomPosition;
@@ -124,7 +132,9 @@ namespace SimpleSetupEcs2d
 
     public readonly struct UpdateMoveSpeedCommandTag : IComponentData { }
 
-    public readonly struct DestroyCommandTag : IComponentData { }
+    public readonly struct DestroySpritePresenterCommandTag : IComponentData { }
+
+    public readonly struct DestroySpriteEntityCommandTag : IComponentData { }
 
     public readonly struct CanMoveTag : IComponentData, IEnableableComponent { }
 
@@ -135,4 +145,8 @@ namespace SimpleSetupEcs2d
     public readonly struct NeedsInitComponentsTag : IComponentData, IEnableableComponent { }
 
     public readonly struct NeedsDestroyTag : IComponentData, IEnableableComponent { }
+
+    public readonly struct Version1Tag : IComponentData { }
+
+    public readonly struct Version2Tag : IComponentData { }
 }

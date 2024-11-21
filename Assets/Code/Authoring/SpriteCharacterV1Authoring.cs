@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace SimpleSetupEcs2d
 {
-    internal sealed class SpriteCharacterAuthoring : MonoBehaviour
+    internal sealed class SpriteCharacterV1Authoring : MonoBehaviour
     {
-        private class Baker : Baker<SpriteCharacterAuthoring>
+        private class Baker : Baker<SpriteCharacterV1Authoring>
         {
-            public override void Bake(SpriteCharacterAuthoring authoring)
+            public override void Bake(SpriteCharacterV1Authoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
+                AddComponent<Version1Tag>(entity);
                 AddComponent<GameObjectInfo>(entity);
                 AddComponent<SpriteRendererRef>(entity);
                 AddComponent<SpriteSheetInfo>(entity);

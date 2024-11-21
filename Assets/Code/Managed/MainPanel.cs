@@ -10,10 +10,13 @@ namespace SimpleSetupEcs2d
         [SerializeField] private CanvasGroup _panelCharacterCount;
 
         [SerializeField] private Toggle _toggleRandomAnimation;
-        [SerializeField] private Toggle _toggleMultiCharacters;
-
         [SerializeField] private TMP_Text _labelRandomAnimation;
+
+        [SerializeField] private Toggle _toggleMultiCharacters;
         [SerializeField] private TMP_Text _labelMultiCharacters;
+
+        [SerializeField] private Toggle _toggleVersion;
+        [SerializeField] private TMP_Text _labelVersion;
 
         [SerializeField] private TMP_InputField _inputCharacterCount;
         [SerializeField] private Button _buttonApplyCharacterCount;
@@ -22,10 +25,16 @@ namespace SimpleSetupEcs2d
         {
             _toggleRandomAnimation.onValueChanged.AddListener(ToggleRandomAnimation_OnValueChanged);
             _toggleMultiCharacters.onValueChanged.AddListener(ToggleMultiCharacter_OnValueChanged);
+            _toggleVersion.onValueChanged.AddListener(ToggleVersion_OnValueChanged);
             _buttonApplyCharacterCount.onClick.AddListener(ButtonApplyCharacterCount_OnClick);
 
             SetCanvasGroup(_panelAnimations, false, flip: true);
             SetCanvasGroup(_panelCharacterCount, false, flip: false);
+        }
+
+        private void Start()
+        {
+            ResetCharacters(1, false);
         }
 
         private void ToggleRandomAnimation_OnValueChanged(bool value)
@@ -49,6 +58,13 @@ namespace SimpleSetupEcs2d
             {
                 ResetCharacters(1, false);
             }
+        }
+
+        private void ToggleVersion_OnValueChanged(bool value)
+        {
+            _labelVersion.text = value ? "Version 2" : "Version 1";
+
+            EventVault.SetVersion2(value);
         }
 
         private void ButtonApplyCharacterCount_OnClick()

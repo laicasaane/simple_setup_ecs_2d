@@ -14,6 +14,8 @@ namespace SimpleSetupEcs2d
 
         public static event Action<bool> OnSetRandomAnimation;
 
+        public static event Action<bool> OnSetVersion2;
+
         public static void ChangeSpriteSheet(int sheetId)
         {
             OnChangeSpriteSheet?.Invoke(sheetId);
@@ -32,6 +34,11 @@ namespace SimpleSetupEcs2d
         public static void SetRandomAnimation(bool value)
         {
             OnSetRandomAnimation?.Invoke(value);
+        }
+
+        public static void SetVersion2(bool value)
+        {
+            OnSetVersion2?.Invoke(value);
         }
     }
 }

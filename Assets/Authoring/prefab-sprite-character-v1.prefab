@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3682105304991004403}
   - component: {fileID: -4711380726884863692}
   m_Layer: 0
-  m_Name: prefab-sprite-character
+  m_Name: prefab-sprite-character-v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

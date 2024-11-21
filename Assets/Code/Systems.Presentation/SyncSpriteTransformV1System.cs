@@ -9,7 +9,7 @@ namespace SimpleSetupEcs2d
 {
     [BurstCompile]
     [UpdateInGroup(typeof(PresentationSystemGroup))]
-    public partial struct SyncSpriteTransformSystem : ISystem
+    public partial struct SyncSpriteTransformV1System : ISystem
     {
         private EntityQuery _poolerQuery;
         private EntityQuery _entityQuery;

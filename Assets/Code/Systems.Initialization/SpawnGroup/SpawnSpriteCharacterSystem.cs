@@ -14,7 +14,6 @@ namespace SimpleSetupEcs2d
         private EntityQuery _randomizerQuery;
         private EntityQuery _randomAnimQuery;
         private EntityQuery _moveSpeedConfigQuery;
-        private EntityQuery _prefabQuery;
         private EntityQuery _vaultQuery;
         private EntityQuery _spawnQuery;
 
@@ -37,10 +36,6 @@ namespace SimpleSetupEcs2d
                 .WithAll<MoveSpeedConfig>()
                 .Build();
 
-            _prefabQuery = SystemAPI.QueryBuilder()
-                .WithAll<CharacterPrefab>()
-                .Build();
-
             _vaultQuery = SystemAPI.QueryBuilder()
                 .WithAll<NativeSpriteSheetVault>()
                 .Build();
@@ -52,7 +47,6 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_randomizerQuery);
             state.RequireForUpdate(_randomAnimQuery);
             state.RequireForUpdate(_moveSpeedConfigQuery);
-            state.RequireForUpdate(_prefabQuery);
             state.RequireForUpdate(_vaultQuery);
             state.RequireForUpdate(_spawnQuery);
         }
@@ -65,7 +59,6 @@ namespace SimpleSetupEcs2d
             var random = _randomizerQuery.GetSingleton<Randomizer>().value;
             var randomAnim = _randomAnimQuery.GetSingleton<RandomAnimation>().value;
             var moveSpeedConfig = _moveSpeedConfigQuery.GetSingleton<MoveSpeedConfig>().value;
-            var prefab = _prefabQuery.GetSingleton<CharacterPrefab>().value;
             var vault = _vaultQuery.GetSingleton<NativeSpriteSheetVault>();
             var spawnInfoArray = _spawnQuery.ToComponentDataArray<SpriteSpawnInfo>(Allocator.Temp);
             em.DestroyEntity(_spawnQuery);
@@ -76,7 +69,7 @@ namespace SimpleSetupEcs2d
                 var randomPosition = spawnInfo.randomPosition;
 
                 if (amount < 1
-                    || vault.assetIdToSheetIdRangeMap.TryGetValue(spawnInfo.id.AssetId, out var range) == false
+                    || vault.assetIdToSheetIdRangeMap.TryGetValue(spawnInfo.sheetId.AssetId, out var range) == false
                 )
                 {
                     continue;
@@ -84,14 +77,14 @@ namespace SimpleSetupEcs2d
 
                 var (startIndex, length) = range.GetOffsetAndLength(vault.sheetIds.Length);
                 var spawnRandom = Random.CreateFromIndex(random.NextUInt(0, 100));
-                var entities = em.Instantiate(prefab, amount, Allocator.Temp);
+                var entities = em.Instantiate(spawnInfo.prefab, amount, Allocator.Temp);
 
                 for (var i = 0; i < amount; i++)
                 {
                     var entity = entities[i];
                     var sheetId = randomAnim
                         ? vault.sheetIds[spawnRandom.NextInt(startIndex, startIndex + length)]
-                        : spawnInfo.id;
+                        : spawnInfo.sheetId;
 
                     var sheetResult = vault.sheetIdToSheetMap.TryGetValue(sheetId, out var sheet);
                     var sheetLength = math.select(0, sheet.length, sheetResult);

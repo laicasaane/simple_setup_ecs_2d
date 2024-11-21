@@ -6,7 +6,7 @@ namespace SimpleSetupEcs2d
 {
     [UpdateInGroup(typeof(SpawnSystemGroup))]
     [UpdateAfter(typeof(SpawnSpriteCharacterSystem))]
-    public sealed partial class SpawnSpritePresentertSystem : SystemBase
+    public sealed partial class SpawnSpritePresenterSystem : SystemBase
     {
         private EntityQuery _poolerQuery;
         private EntityQuery _presenterQuery;
