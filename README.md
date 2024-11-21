@@ -11,8 +11,17 @@ This repo demonstrates an approach to Unity ECS in 2D that answers these questio
 - How to react to UI events in ECS?
 - How to implement object-pool for sprite presenters?
 - How to utilize [TransformAccessArray](https://docs.unity3d.com/ScriptReference/Jobs.TransformAccessArray.html) to update the transform of sprite presenters in parallel?
+- How to use Companion GameObject from Entities Hybrid?
 
 ## Changelog
+
+### Version 4.0.0
+
+- Upgrade to Unity 6000.0.27
+- Fix a compilation error caused by missing TMPro
+- Add Entities Graphics and URP
+- Add "Version 2" that use Companion GameObject from Entities Hybrid instead of GameObjectPool
+- Make some changes to subscene and authoring to accomodate the Companion GameObject approach
 
 ### Version 3.0.0
 
