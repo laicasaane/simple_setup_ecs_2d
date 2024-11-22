@@ -53,17 +53,12 @@ namespace SimpleSetupEcs2d
                 value = new(prefabs.Length, Allocator.Persistent),
             };
 
-            var arr = new NativeArray<Entity>(prefabs.Length, Allocator.Temp);
-
             for (var i = 0; i < prefabs.Length; i++)
             {
                 var prefab = prefabs[i];
                 var id = new EntityPrefabId(prefab.id, prefab.version);
                 vault.value.Add(id, prefab.prefab);
-                arr[i] = prefab.prefab;
             }
-
-            state.EntityManager.AddComponent<Prefab>(arr);
 
             state.EntityManager.CreateSingleton(vault, nameof(EntityPrefabVault));
             state.EntityManager.DestroyEntity(_prefabQuery);
