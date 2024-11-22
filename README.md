@@ -15,6 +15,11 @@ This repo demonstrates an approach to Unity ECS in 2D that answers these questio
 
 ## Changelog
 
+### Version 4.0.1
+
+- Correct subscene
+- Remove the code to add `Prefab` tag to prefab entities at runtime
+
 ### Version 4.0.0
 
 - Upgrade to Unity 6000.0.27
