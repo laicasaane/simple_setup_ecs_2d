@@ -15,6 +15,10 @@ This repo demonstrates an approach to Unity ECS in 2D that answers these questio
 
 ## Changelog
 
+### Version 4.0.2
+
+- Remove `[BurstCompile]` across `ISystem` methods and document the reason.
+
 ### Version 4.0.1
 
 - Correct subscene
