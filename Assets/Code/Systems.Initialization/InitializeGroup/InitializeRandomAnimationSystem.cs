@@ -7,7 +7,7 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup), OrderFirst = true)]
     public partial struct InitializeRandomAnimationSystem : ISystem
     {
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             var randomAnim = new RandomAnimation {

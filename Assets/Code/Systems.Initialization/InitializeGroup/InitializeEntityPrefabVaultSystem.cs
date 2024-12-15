@@ -11,7 +11,7 @@ namespace SimpleSetupEcs2d
         private EntityQuery _vaultQuery;
         private EntityQuery _prefabQuery;
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             _vaultQuery = SystemAPI.QueryBuilder()
@@ -26,7 +26,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_prefabQuery);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnDestroy(ref SystemState state)
         {
             var query = SystemAPI.QueryBuilder()
@@ -39,7 +39,7 @@ namespace SimpleSetupEcs2d
             }
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             var prefabs = _prefabQuery.ToComponentDataArray<EntityPrefab>(Allocator.Temp);

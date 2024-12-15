@@ -17,7 +17,7 @@ namespace SimpleSetupEcs2d
         private EntityQuery _vaultQuery;
         private EntityQuery _spawnQuery;
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             _spawnRangeQuery = SystemAPI.QueryBuilder()
@@ -51,7 +51,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_spawnQuery);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             var em = state.EntityManager;

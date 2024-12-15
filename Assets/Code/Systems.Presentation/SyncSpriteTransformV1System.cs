@@ -14,7 +14,7 @@ namespace SimpleSetupEcs2d
         private EntityQuery _poolerQuery;
         private EntityQuery _entityQuery;
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             _poolerQuery = SystemAPI.QueryBuilder()
@@ -32,7 +32,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_entityQuery);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             var pooler = _poolerQuery.GetSingleton<SpritePresenterPoolerRef>();

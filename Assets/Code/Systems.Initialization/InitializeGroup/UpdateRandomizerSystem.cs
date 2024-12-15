@@ -11,7 +11,7 @@ namespace SimpleSetupEcs2d
     {
         private EntityQuery _query;
 
-        // Cannot Burst because of System.DateTime
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             uint randomSeed;
@@ -29,7 +29,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_query);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             // Before accessing the Randomizer via GetSingletonRW

@@ -10,7 +10,7 @@ namespace SimpleSetupEcs2d
     {
         private EntityQuery _query;
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             _query = SystemAPI.QueryBuilder()
@@ -25,7 +25,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_query);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             var job = new AnimateSpriteJob {

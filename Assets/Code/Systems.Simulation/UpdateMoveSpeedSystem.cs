@@ -12,7 +12,7 @@ namespace SimpleSetupEcs2d
         private EntityQuery _commandQuery;
         private EntityQuery _entityQuery;
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             _configQuery = SystemAPI.QueryBuilder()
@@ -35,7 +35,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_entityQuery);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             var config = _configQuery.GetSingleton<MoveSpeedConfig>();

@@ -10,7 +10,7 @@ namespace SimpleSetupEcs2d
         private EntityQuery _commandQuery;
         private EntityQuery _spriteQuery;
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnCreate(ref SystemState state)
         {
             _commandQuery = SystemAPI.QueryBuilder()
@@ -26,7 +26,7 @@ namespace SimpleSetupEcs2d
             state.RequireForUpdate(_commandQuery);
         }
 
-        [BurstCompile]
+        /// <inheritdoc cref="Documentation.DoNotPutBurstCompileHere" />
         public void OnUpdate(ref SystemState state)
         {
             state.Dependency = new SetNeedsDestroyJob().ScheduleParallel(_spriteQuery, state.Dependency);
