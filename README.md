@@ -15,19 +15,6 @@ This repo demonstrates an approach to Unity ECS in 2D that answers these questio
 
 ## Changelog
 
-### Version 4.0.1
-
-- Correct subscene
-- Remove the code to add `Prefab` tag to prefab entities at runtime
-
-### Version 4.0.0
-
-- Upgrade to Unity 6000.0.27
-- Fix a compilation error caused by missing TMPro
-- Add Entities Graphics and URP
-- Add "Version 2" that use Companion GameObject from Entities Hybrid instead of GameObjectPool
-- Make some changes to subscene and authoring to accomodate the Companion GameObject approach
-
 ### Version 3.0.0
 
 Add more functionality
@@ -43,9 +30,26 @@ Add more functionality
 ### Version 3.1.0
 
 - Refactor some code
-- Teleport characters to the opposite side of the screen if the went out of bounds
+- Teleport characters to the opposite side of the screen if they went out of bounds
 
 ![spritesheet animations](docs~/preview-3.1.0.gif)
+
+### Version 4.0.0
+
+- Upgrade to Unity 6000.0.27
+- Fix a compilation error caused by missing TMPro
+- Add Entities Graphics and URP
+- Add "Version 2" that use Companion GameObject from Entities Hybrid instead of GameObjectPool
+- Make some changes to subscene and authoring to accomodate the Companion GameObject approach
+
+### Version 4.0.1
+
+- Correct subscene
+- Remove the code to add `Prefab` tag to prefab entities at runtime
+
+### Version 4.0.2
+
+- Remove `[BurstCompile]` across `ISystem` methods and document the reason.
 
 ## Credits
 
