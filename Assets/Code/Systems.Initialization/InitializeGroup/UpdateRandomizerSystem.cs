@@ -11,7 +11,10 @@ namespace SimpleSetupEcs2d
     {
         private EntityQuery _query;
 
-        // Cannot Burst because of System.DateTime
+        /// <summary>
+        /// Do not put [BurstCompile] here because this method uses <see cref="System.DateTime"/>
+        /// which is not supported by Burst.
+        /// </summary>
         public void OnCreate(ref SystemState state)
         {
             uint randomSeed;
