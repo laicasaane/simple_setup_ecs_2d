@@ -49,7 +49,7 @@ Add more functionality
 
 ### Version 4.0.2
 
-- Remove `[BurstCompile]` across `ISystem` methods and document the reason.
+- Remove `[BurstCompile]` on some `ISystem` methods and document the reason.
 
 ## Credits
 
