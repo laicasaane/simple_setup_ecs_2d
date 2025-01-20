@@ -53,7 +53,7 @@ Thus in the Hierarchy window, GameObjects represent entities will be active too.
 
 When "Version 2" is activated, entities from version 1 will be destroyed and entities for
 version 2 will be spawned. This time, they will use Compnanion GameObjects provided
-by Entities Hybrid instead. Thus GameObjects on the Hierarchy window stay deactive.
+by Entities Hybrid instead. Thus GameObjects on the Hierarchy window stay inactive.
 
 **Note:** As of now, Companion GameObjects generally stay invisible. We don't have any
 possible mean to directly inspect them.
