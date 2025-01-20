@@ -10,7 +10,8 @@ This repo demonstrates an approach to Unity ECS in 2D that answers these questio
 - How to synchronize sprite renderers with entities?
 - How to react to UI events in ECS?
 - How to implement object-pool for sprite presenters?
-- How to utilize [TransformAccessArray](https://docs.unity3d.com/ScriptReference/Jobs.TransformAccessArray.html) to update the transform of sprite presenters in parallel?
+- How to utilize [TransformAccessArray](https://docs.unity3d.com/ScriptReference/Jobs.TransformAccessArray.html)
+to update the transform of sprite presenters in parallel?
 - How to use Companion GameObject from Entities Hybrid?
 
 ## Changelog
@@ -39,8 +40,23 @@ Add more functionality
 - Upgrade to Unity 6000.0.27
 - Fix a compilation error caused by missing TMPro
 - Add Entities Graphics and URP
-- Add "Version 2" that use Companion GameObject from Entities Hybrid instead of GameObjectPool
+- Add a "Version 2" button that switch to Companion GameObject powered by Entities Hybrid
 - Make some changes to subscene and authoring to accomodate the Companion GameObject approach
+
+#### About companion GameObjects
+
+As in the video below, when "Version 1" is still active, the entities will use GameObjects
+provided by the [GameObjectPool](/Assets/Code/Managed/GameObjectPool.cs).
+Thus in the Hierarchy window, GameObjects represent entities will be active too.
+
+![version 2](docs~/preview-4.0.0.gif)
+
+When "Version 2" is activated, entities from version 1 will be destroyed and entities for
+version 2 will be spawned. This time, they will use Compnanion GameObjects provided
+by Entities Hybrid instead. Thus GameObjects on the Hierarchy window stay deactive.
+
+**Note:** As of now, Companion GameObjects generally stay invisible. We don't have any
+possible mean to directly inspect them.
 
 ### Version 4.0.1
 
