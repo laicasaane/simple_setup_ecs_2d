@@ -6,15 +6,6 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeConfigurationSystem : SystemBase
     {
-        protected override void OnCreate()
-        {
-            var query = SystemAPI.QueryBuilder()
-                .WithNone<MoveSpeedConfigAssetRef>()
-                .Build();
-
-            RequireForUpdate(query);
-        }
-
         protected override void OnUpdate()
         {
             var indicator = Object.FindFirstObjectByType<ConfigurationIndicator>();

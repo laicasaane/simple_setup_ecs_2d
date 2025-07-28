@@ -7,15 +7,6 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeSpritePresenterPoolerRefSystem : SystemBase
     {
-        protected override void OnCreate()
-        {
-            var query = SystemAPI.QueryBuilder()
-                .WithNone<SpritePresenterPoolerRef>()
-                .Build();
-
-            RequireForUpdate(query);
-        }
-
         protected override void OnUpdate()
         {
             var indicator = Object.FindFirstObjectByType<SceneLoadedIndicator>();

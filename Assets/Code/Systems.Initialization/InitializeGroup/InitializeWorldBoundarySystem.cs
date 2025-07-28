@@ -6,15 +6,6 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeWorldBoundarySystem : SystemBase
     {
-        protected override void OnCreate()
-        {
-            var query = SystemAPI.QueryBuilder()
-                .WithNone<WorldBoundary>()
-                .Build();
-
-            RequireForUpdate(query);
-        }
-
         protected override void OnUpdate()
         {
             if (Camera.main == false)

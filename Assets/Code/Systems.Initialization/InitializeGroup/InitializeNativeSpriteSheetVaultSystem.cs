@@ -8,15 +8,6 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeNativeSpriteSheetVaultSystem : SystemBase
     {
-        protected override void OnCreate()
-        {
-            var query = SystemAPI.QueryBuilder()
-                .WithNone<NativeSpriteSheetVault>()
-                .Build();
-
-            RequireForUpdate(query);
-        }
-
         protected override void OnDestroy()
         {
             var query = SystemAPI.QueryBuilder()

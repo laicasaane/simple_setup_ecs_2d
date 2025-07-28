@@ -8,21 +8,15 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup), OrderFirst = true)]
     public partial struct InitializeEntityPrefabVaultSystem : ISystem
     {
-        private EntityQuery _vaultQuery;
         private EntityQuery _prefabQuery;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            _vaultQuery = SystemAPI.QueryBuilder()
-                .WithNone<EntityPrefabVault>()
-                .Build();
-
             _prefabQuery = SystemAPI.QueryBuilder()
                 .WithAll<EntityPrefab>()
                 .Build();
 
-            state.RequireForUpdate(_vaultQuery);
             state.RequireForUpdate(_prefabQuery);
         }
 
@@ -43,11 +37,6 @@ namespace SimpleSetupEcs2d
         public void OnUpdate(ref SystemState state)
         {
             var prefabs = _prefabQuery.ToComponentDataArray<EntityPrefab>(Allocator.Temp);
-
-            if (prefabs.Length < 1)
-            {
-                return;
-            }
 
             var vault = new EntityPrefabVault {
                 value = new(prefabs.Length, Allocator.Persistent),
