@@ -54,7 +54,7 @@ namespace SimpleSetupEcs2d
 
     public struct WorldBoundary : IComponentData
     {
-        public MinMaxAABB AABB;
+        public MinMaxAABB aabb;
     }
 
     public struct Randomizer : IComponentData

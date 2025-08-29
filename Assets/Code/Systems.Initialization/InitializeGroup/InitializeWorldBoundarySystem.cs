@@ -34,11 +34,12 @@ namespace SimpleSetupEcs2d
                 , new(width, height)
             );
 
-            var aabb = new MinMaxAABB {
-                Min = new(rect.min, 0f),
-                Max = new(rect.max, 0f),
+            var boundary = new WorldBoundary {
+                aabb = new MinMaxAABB {
+                    Min = new(rect.min, 0f),
+                    Max = new(rect.max, 0f),
+                }
             };
-            var boundary= new WorldBoundary { AABB = aabb };
 
             EntityManager.CreateSingleton(boundary, nameof(WorldBoundary));
             CheckedStateRef.Enabled = false;
