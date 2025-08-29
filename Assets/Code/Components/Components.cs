@@ -2,6 +2,7 @@ using System;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 using UnityEngine.Jobs;
 
@@ -53,8 +54,7 @@ namespace SimpleSetupEcs2d
 
     public struct WorldBoundary : IComponentData
     {
-        public float3 min;
-        public float3 max;
+        public MinMaxAABB AABB;
     }
 
     public struct Randomizer : IComponentData
