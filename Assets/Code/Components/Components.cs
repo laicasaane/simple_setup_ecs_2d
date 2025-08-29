@@ -54,6 +54,8 @@ namespace SimpleSetupEcs2d
 
     public struct WorldBoundary : IComponentData
     {
+        public float updateInterval;
+        public double elapsed;
         public MinMaxAABB aabb;
     }
 

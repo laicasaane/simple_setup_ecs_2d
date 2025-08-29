@@ -7,12 +7,26 @@ namespace SimpleSetupEcs2d
     [UpdateInGroup(typeof(InitializeSystemGroup))]
     public sealed partial class InitializeWorldBoundarySystem : SystemBase
     {
+        protected override void OnCreate()
+        {
+            RequireForUpdate<WorldBoundary>();
+        }
+
         protected override void OnUpdate()
         {
             if (Camera.main == false)
             {
                 return;
             }
+            ref var worldBoundary = ref SystemAPI.GetSingletonRW<WorldBoundary>().ValueRW;
+            var elapsedTime = SystemAPI.Time.ElapsedTime;
+            double nextInterval = worldBoundary.elapsed + worldBoundary.updateInterval;
+            if (nextInterval < worldBoundary.elapsed)
+            {
+                return;
+            }
+
+            worldBoundary.elapsed = nextInterval + worldBoundary.updateInterval;
 
             var cam = Camera.main;
             var camTrans = cam.transform;
@@ -33,16 +47,9 @@ namespace SimpleSetupEcs2d
                   new(camTrans.position.x - (width * 0.5f), camTrans.position.y - (height * 0.5f))
                 , new(width, height)
             );
-
-            var boundary = new WorldBoundary {
-                aabb = new MinMaxAABB {
-                    Min = new(rect.min, 0f),
-                    Max = new(rect.max, 0f),
-                }
-            };
-
-            EntityManager.CreateSingleton(boundary, nameof(WorldBoundary));
-            CheckedStateRef.Enabled = false;
+            
+            var aabb = new MinMaxAABB { Min = new(rect.min, 0f), Max = new(rect.max, 0f), };
+            worldBoundary.aabb = aabb;
         }
     }
 }
