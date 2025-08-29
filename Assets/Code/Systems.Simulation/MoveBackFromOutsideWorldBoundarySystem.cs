@@ -1,6 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Mathematics.Geometry;
 using Unity.Transforms;
 
 namespace SimpleSetupEcs2d
@@ -54,8 +55,8 @@ namespace SimpleSetupEcs2d
             private void Execute(in FaceDirection faceDirection, ref LocalTransform transform)
             {
                 var position = transform.Position;
-                var min = boundary.min;
-                var max = boundary.max;
+                var min = boundary.AABB.Min;
+                var max = boundary.AABB.Max;
                 var xToTheRight = math.select(position.x, min.x - padding, position.x > max.x + padding);
                 var xToTheLeft = math.select(position.x, max.x + padding, position.x < min.x - padding);
                 position.x = math.select(xToTheLeft, xToTheRight, faceDirection.GetFace() > 0);
