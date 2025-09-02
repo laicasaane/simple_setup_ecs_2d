@@ -67,6 +67,13 @@ possible mean to directly inspect them.
 
 - Remove `[BurstCompile]` on some `ISystem` methods and document the reason.
 
+### Version 4.0.3
+
+- Remove redundant queries and code from some initialization systems.
+- Utilize `Unity.Mathematics.Geometry.MinMaxAABB` for `WorldBoundary` component. (Thank @IAFahim)
+- Add `OmitLinkedEntityGroupFromPrefabInstance` component to prefab entities to remove LinkedEntityGroup component from instance entities. Because the entities should be simple, without a hierarchy, the existence of LEG is unnecessary.
+- Upgrade to Unity 6000.0.54
+
 ## Credits
 
 - GandalfHardcore - Pixel Art Character Pack: https://gandalfhardcore.itch.io/free-pixel-art
