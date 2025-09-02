@@ -10,6 +10,7 @@ namespace SimpleSetupEcs2d
             public override void Bake(SpriteCharacterV1Authoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
+                AddComponent<OmitLinkedEntityGroupFromPrefabInstance>(entity);
                 AddComponent<Version1Tag>(entity);
                 AddComponent<GameObjectInfo>(entity);
                 AddComponent<SpriteRendererRef>(entity);
